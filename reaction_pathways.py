@@ -1,5 +1,3 @@
-import random
-
 vertices_info = [
 	["Alkanes", [
 		"Alkenes, Cracking, + Heat", 
@@ -103,11 +101,7 @@ def synthesis(reagent, product):
 
 	return output
 
-# reagent = int(input("Reagent: "))
-# product = int(input("Product: "))
-reagent = random.randint(0, v-1)
-product = random.randint(0, v-1)
-while product == reagent:
-	product = random.randint(0, v-1)
+reagent = int(input("Reagent: "))
+product = int(input("Product: "))
 
 print(synthesis(reagent, product))
