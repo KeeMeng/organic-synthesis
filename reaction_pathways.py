@@ -24,7 +24,8 @@ vertices_info = [
 		"Alcohols, Reduction, + LiAlH4 + Dry Ether", 
 		"Hydroxynitriles, Nucleophillic Addition, + KCN + HCN + Ethanol Solvent"]],
 	["Amines", [
-		"N-Substituted_Amides, Nucleophillic Addition, + Acyl Chloride"]],
+		"N-Substituted_Amides, Nucleophillic Addition, + Acyl Chloride", 
+		"Polyamides, Condensation Polymerisation, + Carboxylic Acid"]],
 	["Nitriles", [
 		"Amines, Reduction, + LiAlH4 + Dry Ether or H2 + Ni", 
 		"Carboxylic_Acids, Hydrolysis, + H+ + Reflux or OH- + Reflux + Acid Workup"]],
@@ -56,11 +57,8 @@ vertices_info = [
 		"N-Substituted_Amides, Nucleophillic Addition, + Amine", 
 		"Carboxylic_Acids, Nucleophillic Substitution, + H2O", 
 		"Amides, Nucleophillic Addition, + NH3"]],
-	["Amides", [
-		"Polyamides, Condensation Polymerisation, + Carboxylic Acid"]],
-	["Polyamides", []],
-	["Amino_Acids", [
-		"Polyamides, Condensation Polymerisation, + Catalyst"]]
+	["Amides", []],
+	["Polyamides", []]
 ]
 
 vertices_name = [i[0] for i in vertices_info]
