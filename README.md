@@ -23,3 +23,6 @@ List of homologous series and index number
 17) Amides
 18) Polyamides
 19) Amino_Acids
+
+
+![Aliphatic Synthesis Route Map](aliphatic.jpg)
