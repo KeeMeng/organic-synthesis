@@ -124,7 +124,7 @@ if product_random:
 
 paths = synthesis(int(reagent), int(product))
 if allow_possible_only and (reagent_random or product_random):
-	while not paths:
+	while len(paths) <= 1:
 		if reagent_random:
 			reagent = random.randint(0, v-1)
 		if product_random:
