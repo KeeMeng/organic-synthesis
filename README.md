@@ -22,7 +22,6 @@ List of homologous series and index number
 16) Acyl_Chlorides
 17) Amides
 18) Polyamides
-19) Amino_Acids
 
 
 ![Aliphatic Synthesis Route Map](aliphatic.jpg)
