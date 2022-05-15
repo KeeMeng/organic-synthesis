@@ -110,8 +110,8 @@ v = len(vertices_name)
 adjacency_list = [[vertices_name.index(j.split(", ")[0]) for j in vertices_info[i][1]] for i in range(v)]
 allow_possible_only = True
 
-print("0:Alkanes, 1:Alkenes, 2:Polyalkenes, 3:Halogenoalkanes, 4:Alcohols, 5:Ketones, 6:Amines, 7:Nitriles, 8:Grignard_Reagents, 9:Aldehydes, 10:Hydroxynitriles, 11:Polyesters, 12:Esters, 13:Substituted_Amides, 14:Carboxylic_Acids, 15:Carboxylates, 16:Acyl_Chlorides, 17:Amides, 18:Polyamides")
-print("Enter homologous series or leave blank for a random choice")
+print("0)Alkanes, 1)Alkenes, 2)Polyalkenes, 3)Halogenoalkanes, 4)Alcohols, 5)Ketones, 6)Amines, 7)Nitriles, 8)Grignard_Reagents, 9)Aldehydes, 10)Hydroxynitriles, 11)Polyesters, 12)Esters, 13)Substituted_Amides, 14)Carboxylic_Acids, 15)Carboxylates, 16)Acyl_Chlorides, 17)Amides, 18)Polyamides\n")
+print("Enter homologous series ID or leave blank for a random choice")
 reagent = input("Reagent: ")
 product = input("Product: ")
 reagent_random = not reagent
@@ -119,19 +119,24 @@ product_random = not product
 
 if reagent_random:
 	reagent = random.randint(0, v-1)
+else:
+	reagent = int(reagent)
 if product_random:
 	product = random.randint(0, v-1)
+else:
+	product = int(product)
 
-paths = synthesis(int(reagent), int(product))
+paths = synthesis(reagent, product)
 if allow_possible_only and (reagent_random or product_random):
 	while len(paths) <= 1:
 		if reagent_random:
 			reagent = random.randint(0, v-1)
 		if product_random:
 			product = random.randint(0, v-1)
-		paths = synthesis(int(reagent), int(product))
+		paths = synthesis(reagent, product)
 
 if paths:
+	print(f"\nPath from {vertices_name[reagent].replace('_', ' ')}({reagent}) to {vertices_name[product].replace('_', ' ')}({product}): ")
 	for counter in range(len(paths)):
 		print(f"Path {counter}) {fancy_output1(paths[counter])}")
 	while True:
@@ -141,4 +146,4 @@ if paths:
 		else:
 			break
 else:
-	print(f"{vertices_name[int(reagent)].replace('_', ' ')} cannot be synthesised into {vertices_name[int(product)].replace('_', ' ')}")
+	print(f"\n{vertices_name[reagent].replace('_', ' ')} cannot be synthesised into {vertices_name[product].replace('_', ' ')}")
