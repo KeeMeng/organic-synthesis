@@ -63,51 +63,82 @@ vertices_info = [
 	["Polyamides", []]
 ]
 
-vertices_name = [i[0] for i in vertices_info]
-v = len(vertices_name)
-
-adjacency_list = [[vertices_name.index(j.split(", ")[0]) for j in vertices_info[i][1]] for i in range(v)]
-
 
 def synthesis(reagent, product):
-	output = ""
-
+	paths = []
 	queue = [[reagent]]
 	while queue:
 		path = queue.pop(0)
 		vertex = path[-1]
 		if vertex == product:
-			break
+			if paths:
+				if len(paths[0]) == len(path):
+					paths.append(path)
+				else:
+					break
+			else:
+				paths.append(path)
 		for adjacent in adjacency_list[vertex]:
 			if adjacent not in path:
 				queue.append(path+[adjacent])
 
 
-	if path[-1] != product:
-		output += f"{vertices_name[reagent].replace('_', ' ')} cannot be synthesised into {vertices_name[product].replace('_', ' ')}"
+	return paths
 
-	else:
-		input(f"Path from {vertices_name[reagent].replace('_', ' ')} to {vertices_name[product].replace('_', ' ')} (Press enter to continue): ")
-		for counter in range(len(path)-1):
-			output += vertices_name[path[counter]].replace("_", " ")
-			pos = adjacency_list[path[counter]].index(path[counter+1])
-			output += f" ({vertices_info[path[counter]][1][pos].split(', ')[2]})"
-			output += f"\n↓ {vertices_info[path[counter]][1][pos].split(', ')[1]}\n"
-		
-		output += vertices_name[path[-1]].replace("_", " ")
+def fancy_output1(path):
+	output = ""
+	for i in path[:-1]:
+		output += vertices_name[i].replace("_", " ")
+		output += " → "
+	output += vertices_name[path[-1]].replace("_", " ")
+	return output
 
-		# print(f"\nPath length: {len(path)-1}")
-		# print("Raw path:", path)
+def fancy_output2(path):
+	output = ""
+	for counter in range(len(path)-1):
+		output += vertices_name[path[counter]].replace("_", " ")
+		pos = adjacency_list[path[counter]].index(path[counter+1])
+		output += f" ({vertices_info[path[counter]][1][pos].split(', ')[2]})"
+		output += f"\n↓ {vertices_info[path[counter]][1][pos].split(', ')[1]}\n"
+	output += vertices_name[path[-1]].replace("_", " ")
 
 	return output
+
+
+vertices_name = [i[0] for i in vertices_info]
+v = len(vertices_name)
+adjacency_list = [[vertices_name.index(j.split(", ")[0]) for j in vertices_info[i][1]] for i in range(v)]
+allow_possible_only = True
 
 print("0:Alkanes, 1:Alkenes, 2:Polyalkenes, 3:Halogenoalkanes, 4:Alcohols, 5:Ketones, 6:Amines, 7:Nitriles, 8:Grignard_Reagents, 9:Aldehydes, 10:Hydroxynitriles, 11:Polyesters, 12:Esters, 13:Substituted_Amides, 14:Carboxylic_Acids, 15:Carboxylates, 16:Acyl_Chlorides, 17:Amides, 18:Polyamides")
 print("Enter homologous series or leave blank for a random choice")
 reagent = input("Reagent: ")
 product = input("Product: ")
-if not reagent:
+reagent_random = not reagent
+product_random = not product
+
+if reagent_random:
 	reagent = random.randint(0, v-1)
-if not product:
+if product_random:
 	product = random.randint(0, v-1)
 
-print(synthesis(int(reagent), int(product)))
+paths = synthesis(int(reagent), int(product))
+if allow_possible_only and (reagent_random or product_random):
+	while not paths:
+		if reagent_random:
+			reagent = random.randint(0, v-1)
+		if product_random:
+			product = random.randint(0, v-1)
+		paths = synthesis(int(reagent), int(product))
+
+if paths:
+	for counter in range(len(paths)):
+		print(f"Path {counter}) {fancy_output1(paths[counter])}")
+	while True:
+		index = input("\nEnter path number for more details or nothing to exit: ")
+		if index:
+			print(fancy_output2(paths[int(index)%len(paths)]))
+		else:
+			break
+else:
+	print(f"{vertices_name[int(reagent)].replace('_', ' ')} cannot be synthesised into {vertices_name[int(product)].replace('_', ' ')}")
