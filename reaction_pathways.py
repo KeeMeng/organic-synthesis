@@ -1,3 +1,5 @@
+import random
+
 vertices_info = [
 	["Alkanes", [
 		"Alkenes, Cracking, + Heat", 
@@ -85,7 +87,7 @@ def synthesis(reagent, product):
 		output += f"{vertices_name[reagent].replace('_', ' ')} cannot be synthesised into {vertices_name[product].replace('_', ' ')}"
 
 	else:
-		output += f"Path from {vertices_name[reagent].replace('_', ' ')} to {vertices_name[product].replace('_', ' ')}: \n"
+		input(f"Path from {vertices_name[reagent].replace('_', ' ')} to {vertices_name[product].replace('_', ' ')} (Press enter to continue): ")
 		for counter in range(len(path)-1):
 			output += vertices_name[path[counter]].replace("_", " ")
 			pos = adjacency_list[path[counter]].index(path[counter+1])
@@ -99,7 +101,13 @@ def synthesis(reagent, product):
 
 	return output
 
-reagent = int(input("Reagent: "))
-product = int(input("Product: "))
+print("0:Alkanes, 1:Alkenes, 2:Polyalkenes, 3:Halogenoalkanes, 4:Alcohols, 5:Ketones, 6:Amines, 7:Nitriles, 8:Grignard_Reagents, 9:Aldehydes, 10:Hydroxynitriles, 11:Polyesters, 12:Esters, 13:Substituted_Amides, 14:Carboxylic_Acids, 15:Carboxylates, 16:Acyl_Chlorides, 17:Amides, 18:Polyamides")
+print("Enter homologous series or leave blank for a random choice")
+reagent = input("Reagent: ")
+product = input("Product: ")
+if not reagent:
+	reagent = random.randint(0, v-1)
+if not product:
+	product = random.randint(0, v-1)
 
-print(synthesis(reagent, product))
+print(synthesis(int(reagent), int(product)))
