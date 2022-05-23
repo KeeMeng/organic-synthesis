@@ -12,7 +12,7 @@ vertices_info = [
 	["Polyalkenes", []],
 	["Halogenoalkanes", [
 		"Alkenes, Elimination, + KOH + Ethanol Solvent + 60ºc", 
-		"Alcohols, Nucleophillic Substitution, + NaOh + 35ºc", 
+		"Alcohols, Nucleophillic Substitution, + NaOH + 35ºc", 
 		"Amines, Nucleophillic Substitution, + Excess NH3 + Ethanol Solvent + Heat", 
 		"Nitriles, Nucleophillic Substitution, + KCN + HCN + Ethanol Solvent", 
 		"Grignard_Reagents, Oxidative Addition, + Mg + Dry Ether + Reflux"]],
